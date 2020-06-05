@@ -1,4 +1,4 @@
-package com.example.textsuggestion;
+package com.example.mvvmex;
 
 import android.content.Context;
 
