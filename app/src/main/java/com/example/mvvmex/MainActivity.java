@@ -22,10 +22,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setView();
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class); // .AndroidViewModelFactory(getApplication()).create(MainViewModel.class);
 
-        setView();
+        getLifecycle().addObserver(viewModel);
+        //this trigger the life cycle event is called in ViewModel
+        //this class is the LifecycleOwner and the ViewModel is LifecycleObserver
+        //LifecycleOwner - those class which uses viewModel objects
+
 
         initiateComponent();
 
