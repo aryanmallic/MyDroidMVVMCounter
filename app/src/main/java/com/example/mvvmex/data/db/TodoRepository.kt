@@ -24,19 +24,19 @@ class TodoRepository(application: Application) {
 
     fun saveTodo(todo: TodoTable) {
         CoroutinesUtils.io {
-            saveTodo(todo)
+            todoDao.saveTodo(todo)
         }
     }
 
-    fun updateTodo(todo: TodoTable){
+    fun updateTodo(todo: TodoTable) {
         CoroutinesUtils.io {
-            updateTodo(todo)
+            todoDao.updateTodo(todo)
         }
     }
 
-    fun deleteTodo(todo: TodoTable){
+    fun deleteTodo(todo: TodoTable) {
         CoroutinesUtils.io {
-            deleteTodo(todo)
+            todoDao.deleteTodo(todo)
         }
     }
 

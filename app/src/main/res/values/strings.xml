@@ -16,4 +16,7 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="msg_fields_empty">All fields required</string>
+    <string name="label_save">save</string>
+    <string name="label_update">update</string>
 </resources>

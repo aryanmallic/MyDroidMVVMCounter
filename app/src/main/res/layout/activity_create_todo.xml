@@ -9,19 +9,20 @@
     tools:context="com.example.mvvmex.ui.creteTodo.CreateTodoActivity">
 
     <EditText
-        android:id="@+id/activity_create_todo_tvName"
+        android:id="@+id/activity_create_todo_etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:hint="Header" />
 
     <EditText
-        android:id="@+id/activity_create_todo_tvContent"
+        android:id="@+id/activity_create_todo_etContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Content" />
 
     <Button
+        android:id="@+id/activity_create_todo_btSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
