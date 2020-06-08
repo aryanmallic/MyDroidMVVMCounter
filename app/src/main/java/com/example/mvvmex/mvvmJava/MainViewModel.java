@@ -1,4 +1,4 @@
-package com.example.mvvmex;
+package com.example.mvvmex.mvvmJava;
 
 import android.util.Log;
 
