@@ -1,5 +1,6 @@
 package com.example.mvvmex.ui.viewTodo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,7 @@ import com.example.mvvmex.data.db.TodoTable
 import com.example.mvvmex.ui.creteTodo.CreateTodoActivity
 import com.example.mvvmex.ui.creteTodo.CreateTodoViewModel
 import com.example.mvvmex.utils.Constants
+import com.example.mvvmex.utils.UiUtils
 import kotlinx.android.synthetic.main.activity_view_todo.*
 
 class ViewTodoActivity : AppCompatActivity() {
@@ -33,7 +35,6 @@ class ViewTodoActivity : AppCompatActivity() {
         initList()
 
         viewTodoViewModel.getAllTodoList().observe(this, Observer {
-            Toast.makeText(this, "" + it.size, Toast.LENGTH_SHORT).show()
             viewTodoAdapter.updateList(it)
         })
     }
@@ -45,10 +46,23 @@ class ViewTodoActivity : AppCompatActivity() {
                 if (eventType == Constants.EVENT_DELETE) {
                     viewTodoViewModel.deleteTodo(todoTable)
                 } else {
-                    CreateTodoActivity.startForResult(this@ViewTodoActivity)
+                    CreateTodoActivity.startForResult(this@ViewTodoActivity, todoTable)
                 }
             }
         })
         activity_view_todo_rvList.adapter = viewTodoAdapter
+    }
+
+
+    fun onAddTodo(view: View) {
+        CreateTodoActivity.startForResult(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == Constants.REQUEST_INTENT_ADD_TODO) {
+            //UiUtils.showToast(this, "New Entry")
+        }
     }
 }

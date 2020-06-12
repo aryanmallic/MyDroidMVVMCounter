@@ -11,6 +11,6 @@ import kotlinx.android.parcel.Parcelize
  */
 @Entity(tableName = "todo")
 @Parcelize
-data class TodoTable(@PrimaryKey(autoGenerate = true) val id: Long,
+data class TodoTable(@PrimaryKey(autoGenerate = true) val id: Long?,
                      @ColumnInfo(name = "title") val title: String,
                      @ColumnInfo(name = "content") val content: String) : Parcelable

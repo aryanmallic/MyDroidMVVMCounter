@@ -19,4 +19,5 @@
     <string name="msg_fields_empty">All fields required</string>
     <string name="label_save">save</string>
     <string name="label_update">update</string>
+    <string name="label_add_note">Add Note</string>
 </resources>

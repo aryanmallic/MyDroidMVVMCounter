@@ -5,12 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
+    android:orientation="vertical"
     tools:context="com.example.mvvmex.ui.viewTodo.ViewTodoActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/activity_view_todo_rvList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/todo_item" />
+
+    <Button
+        android:id="@+id/activity_view_todo_btAddNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onAddTodo"
+        android:text="@string/label_add_note"/>
 </LinearLayout>

@@ -48,7 +48,7 @@ class ViewTodoAdapter(val mListener: ViewTodoAdapterListener) : RecyclerView.Ada
             itemView.setOnClickListener {
                 mListener.onClicked(mList[adapterPosition],Constants.EVENT_EDIT)
             }
-            itemView.setOnClickListener{
+            itemView.item_todo_ivDelete.setOnClickListener{
                 mListener.onClicked(mList[adapterPosition],Constants.EVENT_DELETE)
             }
         }
