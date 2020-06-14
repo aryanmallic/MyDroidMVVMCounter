@@ -4,16 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mvvmex.R
 import com.example.mvvmex.data.db.TodoTable
 import com.example.mvvmex.ui.creteTodo.CreateTodoActivity
-import com.example.mvvmex.ui.creteTodo.CreateTodoViewModel
 import com.example.mvvmex.utils.Constants
-import com.example.mvvmex.utils.UiUtils
+import com.example.mvvmex.utils.UiLifeCycleScope
 import kotlinx.android.synthetic.main.activity_view_todo.*
+import kotlinx.coroutines.Dispatchers
 
 class ViewTodoActivity : AppCompatActivity() {
 
@@ -31,6 +30,7 @@ class ViewTodoActivity : AppCompatActivity() {
 
         viewTodoViewModel = ViewModelProvider(this).get(ViewTodoViewModel::class.java)
         lifecycle.addObserver(viewTodoViewModel)
+
 
         initList()
 
