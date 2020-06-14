@@ -51,8 +51,8 @@ class CreateTodoViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun destroy() {
+    fun onPause() {
         uiScope.destroy()
-        Log.d(TAG, "Lifecycle : uiScope destroyed in onCreate")
+        Log.d(TAG, "Lifecycle : uiScope destroyed in onPause")
     }
 }
