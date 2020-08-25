@@ -13,7 +13,8 @@ import kotlin.coroutines.CoroutineContext
  * Created by Akhtar
  */
 
-class UiLifeCycleScope(private val dispatcher: CoroutineDispatcher) : CoroutineScope, LifecycleObserver {
+class UiLifeCycleScope(private val dispatcher: CoroutineDispatcher = Dispatchers.Default)
+    : CoroutineScope {
     private lateinit var job: Job
 
     override val coroutineContext: CoroutineContext

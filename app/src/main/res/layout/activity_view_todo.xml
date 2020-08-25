@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp"
-    android:orientation="vertical"
-    tools:context="com.example.mvvmex.ui.viewTodo.ViewTodoActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_view_todo_rvList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/todo_item" />
+    <data>
 
-    <Button
-        android:id="@+id/activity_view_todo_btAddNote"
+        <variable
+            name="eventHandler"
+            type="com.example.mvvmex.ui.viewTodo.ViewTodoViewModel.ViewTodo" />
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onAddTodo"
-        android:text="@string/label_add_note"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context="com.example.mvvmex.ui.viewTodo.ViewTodoActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activity_view_todo_rvList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/todo_item" />
+
+        <Button
+            android:id="@+id/activity_view_todo_btAddNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{eventHandler::onAddTodo}"
+            android:text="@string/label_add_note" />
+    </LinearLayout>
+</layout>

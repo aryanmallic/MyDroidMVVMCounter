@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import android.widget.EditText
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.example.mvvmex.R
 import com.example.mvvmex.data.db.TodoTable
+import com.example.mvvmex.databinding.ActivityCreateTodoBinding
 import com.example.mvvmex.ui.BaseActivity
 import com.example.mvvmex.utils.Constants
 import com.example.mvvmex.utils.UiUtils
@@ -14,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_create_todo.*
 
 
 class CreateTodoActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityCreateTodoBinding
 
     private lateinit var createTodoViewModel: CreateTodoViewModel
 
@@ -32,6 +36,10 @@ class CreateTodoActivity : BaseActivity() {
         }
     }
 
+    override fun initializeBindingComponent(binding: ViewDataBinding) {
+        this.binding = binding as ActivityCreateTodoBinding
+    }
+
 
     override fun defineLayoutResource(): Int {
         return R.layout.activity_create_todo
@@ -41,10 +49,15 @@ class CreateTodoActivity : BaseActivity() {
         createTodoViewModel = ViewModelProvider(this).get(CreateTodoViewModel::class.java)
         lifecycle.addObserver(createTodoViewModel)
 
+
+
+
         if (intent.extras != null && intent.hasExtra(Constants.INTENT_TODO)) {
             todoRecord = intent.getParcelableExtra(Constants.INTENT_TODO)
             updateUi()
         }
+
+
 
         if (todoRecord != null) {
             activity_create_todo_btSave.text = getString(R.string.label_update)
@@ -53,10 +66,12 @@ class CreateTodoActivity : BaseActivity() {
         }
     }
 
+
     private fun updateUi() {
         activity_create_todo_etName.setText(todoRecord?.title)
         activity_create_todo_etContent.setText(todoRecord?.content)
     }
+
 
     fun onSave(v: View) {
         val name = activity_create_todo_etName.text.toString().trim()
@@ -72,7 +87,7 @@ class CreateTodoActivity : BaseActivity() {
         if (isNotEmpty) {
             if (activity_create_todo_btSave.text == getString(R.string.label_save)) {
                 createTodoViewModel.saveTodo(TodoTable(null, name, content))
-            }else{
+            } else {
                 createTodoViewModel.updateTodo(TodoTable(todoRecord?.id, name, content))
             }
 

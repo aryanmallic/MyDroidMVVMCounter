@@ -2,6 +2,7 @@ package com.example.mvvmex.ui.viewTodo
 
 import android.app.Application
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.*
 import com.example.mvvmex.data.db.TodoRepository
 import com.example.mvvmex.data.db.TodoTable
@@ -22,22 +23,16 @@ class ViewTodoViewModel(application: Application) : AndroidViewModel(application
         private val TAG = ViewTodoViewModel::class.java.simpleName
     }
 
-    fun saveTodo(todo: TodoTable) {
-        uiScope.launch {
-            todoRepository.saveTodo(todo)
-        }
+    suspend fun saveTodo(todo: TodoTable) {
+        todoRepository.saveTodo(todo)
     }
 
-    fun updateTodo(todo: TodoTable) {
-        uiScope.launch {
-            todoRepository.updateTodo(todo)
-        }
+    suspend fun updateTodo(todo: TodoTable) {
+        todoRepository.updateTodo(todo)
     }
 
-    fun deleteTodo(todo: TodoTable) {
-        uiScope.launch {
-            todoRepository.deleteTodo(todo)
-        }
+    suspend fun deleteTodo(todo: TodoTable) {
+        todoRepository.deleteTodo(todo)
     }
 
     fun getAllTodoList(): LiveData<List<TodoTable>> {
@@ -47,14 +42,16 @@ class ViewTodoViewModel(application: Application) : AndroidViewModel(application
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onCreate() {
-        uiScope.onCreate()
         Log.d(TAG, "Lifecycle : uiScope created in onCreate")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPause() {
-        uiScope.destroy()
         Log.d(TAG, "Lifecycle : uiScope destroyed in onPause")
+    }
+
+    interface ViewTodo{
+        fun onAddTodo(v: View)
     }
 
 

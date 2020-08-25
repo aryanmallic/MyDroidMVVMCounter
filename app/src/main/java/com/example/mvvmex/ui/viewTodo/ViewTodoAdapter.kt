@@ -3,9 +3,13 @@ package com.example.mvvmex.ui.viewTodo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mvvmex.BR
 import com.example.mvvmex.R
 import com.example.mvvmex.data.db.TodoTable
+import com.example.mvvmex.databinding.TodoItemBinding
 import com.example.mvvmex.utils.Constants
 import kotlinx.android.synthetic.main.todo_item.view.*
 
@@ -18,9 +22,14 @@ class ViewTodoAdapter(val mListener: ViewTodoAdapterListener) : RecyclerView.Ada
     private var mList: List<TodoTable> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.todo_item, parent, false)
-        return MyViewHolder(view)
+        val binding: ViewDataBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.todo_item,
+                parent,
+                false
+        )
+
+        return MyViewHolder(binding as TodoItemBinding)
     }
 
     override fun getItemCount(): Int {
@@ -36,28 +45,23 @@ class ViewTodoAdapter(val mListener: ViewTodoAdapterListener) : RecyclerView.Ada
         notifyDataSetChanged()
     }
 
-    /**
-     * RecycleView touch event callbacks
-     * */
-    interface ViewTodoAdapterListener {
-        fun onClicked(todoTable: TodoTable, eventType: String)
-    }
-
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        init {
+    inner class MyViewHolder(private val binding: TodoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        /*init {
             itemView.setOnClickListener {
                 mListener.onClicked(mList[adapterPosition],Constants.EVENT_EDIT)
             }
             itemView.item_todo_ivDelete.setOnClickListener{
                 mListener.onClicked(mList[adapterPosition],Constants.EVENT_DELETE)
             }
-        }
+        }*/
 
         fun bind(todoTable: TodoTable) {
-            itemView.item_todo_tvName.text=todoTable.title
-            itemView.item_todo_tvContent.text=todoTable.content
+            binding.data = todoTable
         }
+    }
 
+    interface ViewTodoAdapterListener {
+        fun onClicked(todoTable: TodoTable, eventType: String)
     }
 
 

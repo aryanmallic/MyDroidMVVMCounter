@@ -2,6 +2,7 @@ package com.example.mvvmex.ui.creteTodo
 
 import android.app.Application
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.*
 import com.example.mvvmex.data.db.TodoRepository
 import com.example.mvvmex.data.db.TodoTable
@@ -54,5 +55,10 @@ class CreateTodoViewModel(application: Application) : AndroidViewModel(applicati
     fun onPause() {
         uiScope.destroy()
         Log.d(TAG, "Lifecycle : uiScope destroyed in onPause")
+    }
+
+
+    interface CreateTodo {
+        fun createNewTodo(v: View)
     }
 }

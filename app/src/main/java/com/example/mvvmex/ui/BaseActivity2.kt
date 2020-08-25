@@ -1,83 +1,54 @@
 package com.example.mvvmex.ui
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.os.SystemClock
+import android.os.PersistableBundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import com.example.mvvmex.R
-import com.example.mvvmex.utils.UiLifeCycleScope
-import com.example.mvvmex.utils.UiUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 
+
 /**
- * Created by Akhtar on 08/06/20
+ * Created by Akhtar
  */
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract  class BaseActivity2:AppCompatActivity(),CoroutineScope {
+
+    private lateinit var job:Job
 
     private var mLastClickTime: Long = 0
-
-    protected abstract fun initializeBindingComponent(binding: ViewDataBinding)
 
     protected abstract fun defineLayoutResource(): Int
 
     protected abstract fun initializeBehavior()
 
-    private lateinit var job:Job
 
-    companion object {
-        const val CLICK_MIN_INTERVAL: Long = 700
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //setContentView(defineLayoutResource())
-        val binding: ViewDataBinding  = DataBindingUtil.setContentView(this, defineLayoutResource())
-        initializeBindingComponent(binding)
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
         job = Job()
-        initializeBehavior()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
+
+    override fun onDestroy() {
+        super.onDestroy()
         job.cancel()
     }
 
-    fun hideKeyboard() {
-        val view = currentFocus
-        if (view != null) {
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-            imm?.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-    }
 
-    fun isSingleClick(): Boolean {
-        val currentClickTime = SystemClock.uptimeMillis()
-        val elapsedTime = currentClickTime - mLastClickTime
-        mLastClickTime = currentClickTime
 
-        return elapsedTime > CLICK_MIN_INTERVAL
-    }
-
-    fun validateFields(fields: Array<EditText>): Boolean {
-        for (i in fields.indices) {
-            val currentField = fields[i]
-            if (currentField.text.toString().trim().isEmpty()) {
-                currentField.requestFocus()
-                UiUtils.showToast(this, getString(R.string.msg_fields_empty))
-                return false
-            }
-        }
-        return true
+    //Kotlin extension function to show toast
+    fun showToast(message: String) {
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
     }
 
 
